@@ -1,0 +1,18 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "errno": 1,
+    "code": "ELIFECYCLE",
+    "pkgid": "@",
+    "stage": "serve",
+    "script": "webpack serve",
+    "err": {
+      "name": "pnpm",
+      "message": "@ serve: `webpack serve`\nExit status 1",
+      "code": "ELIFECYCLE",
+      "stack": "pnpm: @ serve: `webpack serve`\nExit status 1\n    at EventEmitter.<anonymous> (/home/ndn/.cache/node/corepack/pnpm/6.32.9/dist/pnpm.cjs:105830:20)\n    at EventEmitter.emit (node:events:513:28)\n    at ChildProcess.<anonymous> (/home/ndn/.cache/node/corepack/pnpm/6.32.9/dist/pnpm.cjs:92391:18)\n    at ChildProcess.emit (node:events:513:28)\n    at maybeClose (node:internal/child_process:1091:16)\n    at ChildProcess._handle.onexit (node:internal/child_process:302:5)"
+    }
+  }
+}
