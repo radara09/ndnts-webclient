@@ -12,25 +12,33 @@ async function ping(evt) {
   try {
     // Construct the name prefix <user-input>+/ping
     const prefix = new Name(document.querySelector("#app_prefix").value);
+    const app = document.querySelector("#app_param").value;
     const $log = document.querySelector("#app_log");
-    $log.textContent = `ping ${AltUri.ofName(prefix)}\n`;
+    $log.textContent = `Check Data \n${AltUri.ofName(prefix)}\n`;
 
     const endpoint = new Endpoint();
+    const encoder = new TextEncoder();
     // Generate a random number as initial sequence number.
     let seqNum = Math.trunc(Math.random() * 1e8);
-    for (let i = 0; i < 4; ++i) {
+    for (let i = 0; i < 3; ++i) {
       ++seqNum;
       // Construct an Interest with prefix + seqNum.
-      const interest = new Interest(prefix,
-        Interest.MustBeFresh, Interest.Lifetime(1000));
+      const interest = new Interest();
+      interest.name = prefix;
+      interest.mustBeFresh = true; 
+      interest.lifetime = 1000;
+      interest.appParameters = encoder.encode(app);
+      $log.textContent += `\n${encoder.encode(app)}\n`;
       const t0 = Date.now();
+      await interest.updateParamsDigest();
       try {
         // Retrieve Data and compute round-trip time.
         const data = await endpoint.consume(interest);
         const rtt = Date.now() - t0;
         const dataContent = data.content;
         //console.log(dataContent);
-        $log.textContent += `\n${AltUri.ofName(data.name)} rtt=${rtt}ms content=${String.fromCharCode(...dataContent)}`;
+        $log.textContent += `${AltUri.ofName(data.name)} rtt= ${rtt}ms content= ${String.fromCharCode(...dataContent)}\n`;
+        console.log(`${rtt} ms`);
       } catch(err) {
         // Report Data retrieval error.
         $log.textContent += `\n${AltUri.ofName(interest.name)} ${err}`;
@@ -50,7 +58,8 @@ async function main() {
   // This function queries the NDN-FCH service, and connects to the nearest router.
   //await connectToRouter("wss://192.168.56.106:9696/ws/", {});
   //await WsTransport.createFace({}, "wss://testbed-ndn-rg.stei.itb.ac.id/ws/");
-  await WsTransport.createFace({}, "ws://192.168.56.106:9696/ws/");
+  await WsTransport.createFace({}, "ws://192.168.56.111:9696/ws/");
+  //await WsTransport.createFace({}, "ws://coba.ndntel-u.my.id/ws/");
 
   // Enable the form after connection was successful.
   document.querySelector("#app_button").disabled = false;
