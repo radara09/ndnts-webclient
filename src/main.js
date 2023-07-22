@@ -72,3 +72,23 @@ async function main() {
 }
 
 window.addEventListener("load", main);
+
+
+
+
+
+/*
+import { AltUri, Interest, Name } from "@ndn/packet"; //import lib
+
+async function ping() { //membuat fungsi async
+    const prefix = new Name(document.querySelector("#app_prefix").value); //membuat const baru dari id #app_prefix dari form
+    const app = document.querySelector("#app_param").value; //membuat const baru dari id #app_param dari form
+    const $log = document.querySelector("#app_log"); //membuat const baru dari id #app_log dari form
+    const encoder = new TextEncoder(); //membuat const baru untuk fungsi TextEncoder
+    const interest = new Interest();  //membuat const baru untuk fungsi Interest
+    interest.name = prefix; //membuat const baru untuk dari fungsi interest dan name
+    interest.appParameters = encoder.encode(app); //melakukan encode packet ndn
+    $log.textContent += `content= ${String.fromCharCode(...dataContent)}\n`; //print data respon
+}
+
+*/
