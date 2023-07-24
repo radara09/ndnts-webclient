@@ -3,11 +3,42 @@ import { WsTransport } from "@ndn/ws-transport";
 import { Endpoint } from "@ndn/endpoint";
 
 // JavaScript code
-const recordForm = document.getElementById("recordForm");
-recordForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+// const recordForm = document.getElementById("recordForm");
+// recordForm.addEventListener("submit", (e) => {
+//     e.preventDefault();
 
-  // Mengambil nilai-nilai dari elemen input
+//   // Mengambil nilai-nilai dari elemen input
+//   const noPasien = document.getElementById("noPasien").value;
+//   const nama = document.getElementById("nama").value;
+//   const umur = document.getElementById("umur").value;
+//   const sex = document.getElementById("sex").value;
+//   const bmi = document.getElementById("bmi").value;
+//   const heartRate = document.getElementById("heartRate").value;
+//   const height = document.getElementById("height").value;
+//   const weight = document.getElementById("weight").value;
+//   const file = document.getElementById("file").files[0];
+
+//   // Buat objek data yang akan dikirim ke Firebase
+//   const newRecord = {
+//     noPasien: noPasien,
+//     nama: nama,
+//     umur: umur,
+//     sex: sex,
+//     bmi: bmi,
+//     heartRate: heartRate,
+//     height: height,
+//     weight: weight,
+//     file: file.name
+//     };
+
+//     const jsonData = JSON.stringify(newRecord);
+//     submit(jsonData)
+   
+// })
+
+async function submit(evt) { //membuat fungsi async
+  evt.preventDefault();
+    // Mengambil nilai-nilai dari elemen input
   const noPasien = document.getElementById("noPasien").value;
   const nama = document.getElementById("nama").value;
   const umur = document.getElementById("umur").value;
@@ -32,9 +63,6 @@ recordForm.addEventListener("submit", (e) => {
     };
 
     const jsonData = JSON.stringify(newRecord);
-   
-   async function ping(evt) { //membuat fungsi async
-     evt.preventDefault();
      const prefix = "/data/adduser"; //membuat const baru dari id #app_prefix dari form
      const app = jsonData; //membuat const baru dari id #app_param dari form
      //const $log = document.querySelector("#app_log"); //membuat const baru dari id #app_log dari form
@@ -60,24 +88,13 @@ recordForm.addEventListener("submit", (e) => {
      console.log(interest.appParameters)
      console.log(`${rtt} ms`);
    }
-   
-   async function main() {
-     // Connect to the global NDN network in one line.
-     // This function queries the NDN-FCH service, and connects to the nearest router.
-     //await WsTransport.createFace({}, "wss://ndn-ehealth.australiaeast.cloudapp.azure.com");
+
+async function main() {
      const face = await WsTransport.createFace({}, "wss://hmbe.ndntel-u.my.id:9696");
-     //const face = await WsTransport.createFace({}, "wss://scbe.ndntel-u.my.id:9696");
-     //await WsTransport.createFace({}, "wss://20.92.254.187:9696/");
-     //await WsTransport.createFace({}, "wss://104.21.31.135:9696/");
      face.addRoute(new Name("/"));
-     //await connectToRouter("wss://192.168.56.106:9696/ws/", {});
-     //await WsTransport.createFace({}, "wss://testbed-ndn-rg.stei.itb.ac.id/ws/");
-     //await WsTransport.createFace({}, "ws://192.168.56.111:9696/ws/");
-     //await WsTransport.createFace({}, "ws://coba.ndntel-u.my.id/ws/");
    
      // Enable the form after connection was successful.
-     document.querySelector("#app_form").addEventListener("submit", ping);
+     document.querySelector("#recordForm").addEventListener("submit", submit);
    }
-   window.addEventListener("load", main);
 
-    })
+window.addEventListener("load", main);
