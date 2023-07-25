@@ -66,6 +66,31 @@ async function main() {
 window.addEventListener("load", main);
 
 /*
+Bismillah Bismillah
+async function uploadFileAndGetDownloadURL(file) {
+    try {
+      // Buat referensi ke Firebase Storage dengan spesifik mengakses direktori "files" dan nama file
+      const storageRef = firebase.storage().ref().child("files/" + file.name);
+      const uploadTask = storageRef.put(file);
+  
+      // Tunggu hingga proses upload selesai
+      await uploadTask;
+  
+      // Dapatkan URL unduhan file
+      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+  
+      // Kembalikan URL unduhan
+      return downloadURL;
+    } catch (error) {
+      // Tangani kesalahan yang terjadi selama proses upload atau saat mendapatkan URL unduhan
+      console.error("Error uploading file or getting download URL:", error);
+      throw error;
+    }
+  }
+*/
+
+
+/*
 //Bismillah Yah
 
 function uploadFileAndGetDownloadURL(file) {
