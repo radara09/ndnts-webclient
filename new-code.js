@@ -29,7 +29,7 @@ async function submit(evt) { //membuat fungsi async
     };
 
     const jsonData = JSON.stringify(newRecord);
-     const prefix = "/data/adduser"; //membuat const baru dari id #app_prefix dari form
+     const prefix = new Name("/data/adduser"); //membuat const baru dari id #app_prefix dari form
      const app = jsonData; //membuat const baru dari id #app_param dari form
      //const $log = document.querySelector("#app_log"); //membuat const baru dari id #app_log dari form
      
