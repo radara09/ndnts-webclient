@@ -47,7 +47,7 @@
     <p>&copy; 2023 Hasil Kesehatan Pasien. All rights reserved.</p>
   </footer>
 
-  <script src="seeOne.js"></script>
+  <script src="bundle.js"></script>
 
 </body>
 </html>
@@ -160,10 +160,10 @@ async function seeOne(evt) { //membuat fungsi async
     const name = jsonData.Nama;
     const age = jsonData.Umur;
     const jk = jsonData.Sex;
-    const diagnosis = jsonData.Diagnosis
-    const SBP = jsonData.SBP
-    const DBP = jsonData.DBP
-    
+    const diagnosis = jsonData.Diagnosis;
+    const SBP = jsonData.SBP;
+    const DBP = jsonData.DBP;
+
     console.log(name);
     console.log(age);
     console.log(jk);
@@ -179,12 +179,19 @@ async function seeOne(evt) { //membuat fungsi async
     const dataSBP = document.getElementById('SBP');
     const dataDBP = document.getElementById('DBP');
 
-    dataNama.textContent = name;
-    dataUmur.textContent = age;
-    dataJK.textContent = sex;
-    dataDiagnosis.textContent = diagnosis;
-    dataSBP.textContent = SBP;
-    dataDBP.textContent = DBP;
+    dataNama.textContent = jsonData.Nama;
+    dataUmur.textContent = jsonData.Umur;
+    dataJK.textContent = jsonData.Sex;
+    dataDiagnosis.textContent = jsonData.Diagnosis;
+    dataSBP.textContent = jsonData.SBP;
+    dataDBP.textContent = jsonData.DBP;
+
+    // dataNama.textContent = name;
+    // dataUmur.textContent = age;
+    // dataJK.textContent = sex;
+    // dataDiagnosis.textContent = diagnosis;
+    // dataSBP.textContent = SBP;
+    // dataDBP.textContent = DBP;
 
 }
 
@@ -195,5 +202,4 @@ async function main() {
  document.querySelector("#app_form").addEventListener("submit", seeOne);
 }
 window.addEventListener("load", main);
-
 */
