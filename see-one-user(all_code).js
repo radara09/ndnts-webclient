@@ -181,8 +181,8 @@ async function seeOne(evt) { //membuat fungsi async
 
     dataNama.textContent = name;
     dataUmur.textContent = age;
+    dataJK.textContent = sex;
     dataDiagnosis.textContent = diagnosis;
-    dataUmur.textContent = age;
     dataSBP.textContent = SBP;
     dataDBP.textContent = DBP;
 
