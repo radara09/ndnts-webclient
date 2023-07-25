@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hasil Kesehatan Pasien</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #b2ddd4;
+      color: #555;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      background-color: #b2ddd4;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+    main {
+      padding: 20px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: #f4f4f4;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hasil Kesehatan Pasien</h1>
+    <a href="index.html" class="button">Beranda</a>
+  </header>
+
+  <main>
+    <h2>Informasi Pasien</h2>
+    <label for="nama">Nama Pasien:</label>
+    <p id="nama"></p>
+
+    <label for="umur">Umur:</label>
+    <p id="umur"></p>
+
+    <label for="sex">Sex(F/M):</label>
+    <p id="sex"></p>
+
+    <h2>Data Kesehatan</h2>
+    <label for="Diagnosis">Diagnosis:</label>
+    <p id="Diagnosis"></p>
+
+    <label for="DBP">Diastolic Blood Pressure(mmHg):</label>
+    <p id="DBP"></p>
+
+    <label for="SBP">Systolic Blood pressure(mmHg):</label>
+    <p id="SBP"></p>
+
+    <canvas id="grafikKesehatan"></canvas>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Hasil Kesehatan Pasien. All rights reserved.</p>
+  </footer>
+
+  <!-- Include Firebase JavaScript SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+
+  <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+    apiKey: "AIzaSyBfwJoBt2kT0iOMjlDBw_heFaqjwjlp5ZU",
+    authDomain: "medical-record-7557a.firebaseapp.com",
+    databaseURL: "https://medical-record-7557a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "medical-record-7557a",
+    storageBucket: "medical-record-7557a.appspot.com",
+    messagingSenderId: "973084416066",
+    appId: "1:973084416066:web:50c8c2831db284a7e835db",
+    measurementId: "G-MZ9NN8VEQZ"
+  };
+
+    // Inisialisasi aplikasi Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+// Mendapatkan selectedPasienId dari localStorage
+    const selectedPasienId = localStorage.getItem('selectedPasienId');
+
+    // Referensi database Firebase
+    const database = firebase.database();
+// Retrieve patient information from Firestore
+    const urlParams = new URLSearchParams(window.location.search);
+    const pasienId = urlParams.get('id');
+    const pasienDocRef = database.ref('records/' + pasienId);
+    pasienDocRef.once('value').then((snapshot) => {
+  const pasien = snapshot.val();
+
+  // Display patient information on the page
+  document.getElementById('nama').textContent = pasien.nama;
+  document.getElementById('umur').textContent = pasien.umur;
+  document.getElementById('sex').textContent = pasien.sex;
+  document.getElementById('Diagnosis').textContent = pasien.Diagnosis;
+  document.getElementById('DBP').textContent = pasien.DBP;
+  document.getElementById('SBP').textContent = pasien.SBP;
+
+      const canvas = document.getElementById('grafikKesehatan');
+      const ctx = canvas.getContext('2d');
+
+      // Retrieve file URL from Firebase Storage
+      const fileURL = 'gs://medical-record-7557a.appspot.com/files/103_3.txt'; // Ganti dengan URL file yang valid
+fetch(fileURL)
+  .then(response => response.text())
+  .then(data => {
+    // Parse isi file menjadi array sinyal
+    const lines = data.split('\n');
+    const signalData = lines.map(line => parseFloat(line));
+
+    // Update data grafik dengan array sinyal yang telah di-parse
+    chart.data.labels = Array.from(Array(signalData.length).keys());
+    chart.data.datasets[0].data = signalData;
+
+    // Memperbarui grafik
+    chart.update();
+  })
+  .catch(error => {
+    console.error('Error fetching file:', error);
+  });
+// Function to navigate back to Beranda
+function goToBeranda() {
+      window.location.href = "index.html";
+    }
+  })
+  </script>
+</body>
+</html>
