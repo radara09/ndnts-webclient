@@ -132,11 +132,12 @@ async function seeOne(evt) { //membuat fungsi async
  const endpoint = new Endpoint();
  const encoder = new TextEncoder(); //membuat const baru untuk fungsi TextEncoder
  const interest = new Interest();  //membuat const baru untuk fungsi Interest
+ const decoder = new TextDecoder();
  
  interest.name = prefix; //membuat const baru untuk dari fungsi interest dan name
  interest.mustBeFresh = true; 
  interest.lifetime = 1000;
- interest.appParameters = encoder.encode(app); //melakukan encode packet ndn
+ interest.appParameters = encoder.encode(app); //melakukan encode dari string ke uint8array
  await interest.updateParamsDigest();
  
  //console.log(`ini dari ${app} dan ini dari ${interest.appParameters}`);
@@ -147,8 +148,44 @@ async function seeOne(evt) { //membuat fungsi async
  const dataContent = data.content;
  
  //$log.textContent += `content= ${String.fromCharCode(...dataContent)}\n`; //print data respon
- console.log(dataContent)
+ console.log(dataContent) // => datacontent masih dalam bentuk uint8array ganti ke string
  console.log(`${rtt} ms`);
+ //tugasnya gimana ganti itu ke string terus string ke json harusnya.
+    
+    const dataBaru = decoder.decode(dataContent);
+    console.log(dataBaru);
+    const jsonData = JSON.parse(dataBaru);
+    console.log(jsonData);
+
+    const name = jsonData.Nama;
+    const age = jsonData.Umur;
+    const jk = jsonData.Sex;
+    const diagnosis = jsonData.Diagnosis
+    const SBP = jsonData.SBP
+    const DBP = jsonData.DBP
+    
+    console.log(name);
+    console.log(age);
+    console.log(jk);
+    console.log(diagnosis);
+    console.log(SBP);
+    console.log(DBP);
+
+    // Mengakses elemen-elemen HTML dengan menggunakan ID
+    const dataNama = document.getElementById('nama');
+    const dataUmur = document.getElementById('umur');
+    const dataJK = document.getElementById('sex');
+    const dataDiagnosis = document.getElementById('Diagnosis');
+    const dataSBP = document.getElementById('SBP');
+    const dataDBP = document.getElementById('DBP');
+
+    dataNama.textContent = name;
+    dataUmur.textContent = age;
+    dataDiagnosis.textContent = diagnosis;
+    dataUmur.textContent = age;
+    dataSBP.textContent = SBP;
+    dataDBP.textContent = DBP;
+
 }
 
 async function main() {
