@@ -67,6 +67,22 @@ window.addEventListener("load", main);
 
 
 /*
+// Upload file and metadata to the object 'images/mountains.jpg'
+const uploadTask = uploadBytesResumable(storageRef, file);
+
+// Listen for state changes, errors, and completion of the upload.
+uploadTask.on('state_changed', 
+  () => {
+    // Upload completed successfully, now we can get the download URL
+    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      console.log('File available at', downloadURL);
+    });
+  }
+);
+*/
+
+
+/*
 import { AltUri, Interest, Name } from "@ndn/packet";
 import { WsTransport } from "@ndn/ws-transport";
 import { Endpoint } from "@ndn/endpoint";
