@@ -65,6 +65,36 @@ async function main() {
 
 window.addEventListener("load", main);
 
+/*
+//Bismillah Yah
+
+function uploadFileAndGetDownloadURL(file) {
+    return new Promise((resolve, reject) => {
+        // Buat referensi ke Firebase Storage dengan spesifik mengakses direktori "files" dan nama file
+    const storageRef = firebase.storage().ref().child("files/" + file.name);
+    // Upload file and metadata to the object 'images/mountains.jpg'
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on('state_changed',
+        (error) => {
+            // Handle errors during upload
+            console.error("Error uploading file to Firebase Storage: ", error);
+            reject(error);
+        },
+        () => {
+            // Upload completed successfully, now we can get the download URL
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                resolve(downloadURL)
+                console.log('File available at', downloadURL);
+            });
+        },  // Ignore progress events since we don't need them in this case
+    );
+    })
+    
+}
+*/
+
 
 /*
 // Upload file and metadata to the object 'images/mountains.jpg'
