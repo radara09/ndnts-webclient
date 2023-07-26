@@ -245,3 +245,73 @@ window.addEventListener("load", main);
   
 
 */
+
+/*Tes Lagi
+
+async function seeOne(evt) {
+  evt.preventDefault();
+  const prefix = new Name("/data/getuser");
+  const app = document.querySelector("#app_name").value;
+
+  const endpoint = new Endpoint();
+  const encoder = new TextEncoder();
+  const interest = new Interest();
+  const decoder = new TextDecoder();
+
+  interest.name = prefix;
+  interest.mustBeFresh = true;
+  interest.lifetime = 1000;
+  interest.appParameters = encoder.encode(app);
+  await interest.updateParamsDigest();
+
+  const t0 = Date.now();
+  const data = await endpoint.consume(interest);
+  const rtt = Date.now() - t0;
+  const dataContent = data.content;
+
+  const dataBaru = decoder.decode(dataContent);
+  console.log(dataBaru);
+  const jsonData = JSON.parse(dataBaru);
+  console.log(jsonData);
+
+  // Memanggil fungsi untuk menampilkan data berdasarkan id yang diberikan
+  const idToFind = 2; // Contoh id yang ingin dicari, sesuaikan dengan skenario Anda
+  findAndDisplayData(jsonData, idToFind);
+}
+
+// Fungsi untuk mencari data berdasarkan id dan menampilkannya
+function findAndDisplayData(jsonData, idToFind) {
+  const dataFound = jsonData[idToFind];
+
+  // Cek apakah data ditemukan atau tidak
+  if (dataFound) {
+    const dataContainer = document.getElementById("dataContainer");
+
+    // Buat elemen-elemen HTML untuk menampilkan data
+    const nameElement = document.createElement("p");
+    nameElement.textContent = `Name: ${dataFound.name}`;
+
+    const ageElement = document.createElement("p");
+    ageElement.textContent = `Age: ${dataFound.age}`;
+
+    const idElement = document.createElement("p");
+    idElement.textContent = `ID: ${dataFound.id}`;
+
+    // Menambahkan elemen-elemen ke dalam div "dataContainer"
+    dataContainer.appendChild(nameElement);
+    dataContainer.appendChild(ageElement);
+    dataContainer.appendChild(idElement);
+  } else {
+    console.log("Data not found!");
+  }
+}
+
+async function main() {
+  const face = await WsTransport.createFace({}, "wss://hmbe.ndntel-u.my.id:9696");
+  face.addRoute(new Name("/"));
+  // Enable the form after connection was successful.
+  document.querySelector("#app_form").addEventListener("submit", seeOne);
+}
+window.addEventListener("load", main);
+
+*/
